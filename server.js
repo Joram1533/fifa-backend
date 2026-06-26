@@ -23,13 +23,30 @@ const app = express();
 
 // ── Middleware ───────────────────────────────────────────────────────────────
 // BULLETPROOF CORS FIX: Explicitly allowing your Vite frontend
+const cors = require('cors');
+
+// Allow requests from your custom domain, www subdomain, and the original Vercel link
+const allowedOrigins = [
+  'https://fifatickets.space',
+  'https://www.fifatickets.space',
+  'https://fifa-frontend-hvcw.vercel.app',
+  'http://localhost:5173' // Keep this so your local testing doesn't break
+];
+
 app.use(cors({
-  origin: [
-    'https://fifa-frontend-hvcw.vercel.app', 
-    'http://localhost:5173'
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json());
