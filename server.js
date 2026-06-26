@@ -24,7 +24,10 @@ const app = express();
 // ── Middleware ───────────────────────────────────────────────────────────────
 // BULLETPROOF CORS FIX: Explicitly allowing your Vite frontend
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://127.0.0.1:5173'],
+  origin: [
+    'https://fifa-frontend-hvcw.vercel.app', 
+    'http://localhost:5173'
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
