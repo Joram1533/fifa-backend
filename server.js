@@ -23,8 +23,6 @@ const app = express();
 
 // ── Middleware ───────────────────────────────────────────────────────────────
 // BULLETPROOF CORS FIX: Explicitly allowing your Vite frontend
-const cors = require('cors');
-
 // Allow requests from your custom domain, www subdomain, and the original Vercel link
 const allowedOrigins = [
   'https://fifatickets.space',
