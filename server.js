@@ -22,28 +22,9 @@ import { getFirestore, FieldValue } from "firebase-admin/firestore";
 const app = express();
 
 // ── Middleware ───────────────────────────────────────────────────────────────
-// BULLETPROOF CORS FIX: Explicitly allowing your Vite frontend
-// Allow requests from your custom domain, www subdomain, and the original Vercel link
-const allowedOrigins = [
-  'https://fifatickets.space',
-  'https://www.fifatickets.space',
-  'https://fifa-frontend-hvcw.vercel.app',
-  'http://localhost:5173'
-];
-
+// NUCLEAR CORS FIX: Accept all requests from anywhere to bypass blocking
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: '*'
 }));
 
 app.use(express.json());
